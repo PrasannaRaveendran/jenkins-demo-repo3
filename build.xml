@@ -79,12 +79,12 @@
  
   <target name="phpmd" description="Perform project mess detection using PHPMD">
     <exec executable="phpmd">
-      <arg path="${basedir}/src" />
-      <arg value="text" />
       <arg path="${basedir}/application/controllers" />
 	  <arg path="${basedir}/application/models" />
 	  <arg path="${basedir}/application/views" />
 	  <arg path="${basedir}/application/views/users" />
+      <arg value="text" />
+	  <arg value="${basedir}/build/phpmd.xml" />      
     </exec>
   </target>
 
