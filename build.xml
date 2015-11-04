@@ -43,6 +43,42 @@
     </exec>
   </target>
   
-  <target name="build" depends="init" />
+  <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer">
+    <exec executable="phpcs">
+      <arg value="--standard=${basedir}/build/phpcs.xml" />
+      <arg value="--ignore=autoload.php" />
+      <arg path="${basedir}/src" />
+    </exec>
+  </target>
+
+  <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer">
+    <exec executable="phpcs" output="/dev/null">
+      <arg value="--report=checkstyle" />
+      <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+      <arg value="--standard=${basedir}/build/phpcs.xml" />
+      <arg value="--ignore=autoload.php" />
+      <arg path="${basedir}/src" />
+    </exec>
+  </target>
+ 
+  <target name="phpmd" description="Perform project mess detection using PHPMD">
+    <exec executable="phpmd">
+      <arg path="${basedir}/src" />
+      <arg value="text" />
+      <arg value="${basedir}/build/phpmd.xml" />
+    </exec>
+  </target>
+
+  <target name="phpmd-ci" description="Perform project mess detection using PHPMD">
+    <exec executable="phpmd">
+      <arg path="${basedir}/src" />
+      <arg value="xml" />
+      <arg value="${basedir}/build/phpmd.xml" />
+      <arg value="--reportfile" />
+      <arg value="${basedir}/build/logs/pmd.xml" />
+    </exec>
+  </target>
+  
+  <target name="build" depends="clean,init,phploc,pdepend,phpmd-ci,phpcs-ci" />
 
 </project>
