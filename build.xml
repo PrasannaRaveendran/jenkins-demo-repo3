@@ -43,6 +43,6 @@
     </exec>
   </target>
   
-  <target name="build" depends="clean,init" />
+  <target name="build" depends="init" />
 
 </project>
