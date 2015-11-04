@@ -8,6 +8,7 @@
     <mkdir dir="${basedir}/build/api" />
     <mkdir dir="${basedir}/build/coverage" />
 	<mkdir dir="${basedir}/build/pdepend" />
+	<mkdir dir="${basedir}/build/phpdox" />
   </target>
 
   <target name="clean">
@@ -24,6 +25,9 @@
 	<delete>
       <fileset dir="${basedir}/build/pdepend" includes="**.*" />
     </delete>
+	<!--<delete>
+      <fileset dir="${basedir}/build/phpdox" includes="**.*" />
+    </delete>-->
   </target>
   
   <target name="phploc" description="Measure project size using PHPLOC">
@@ -97,6 +101,21 @@
     </exec>
   </target>
   
-  <target name="build" depends="clean,init,phploc,pdepend,phpmd-ci,phpcs-ci" />
+  <target name="phpcpd" description="Find duplicate code using PHPCPD">
+    <exec executable="phpcpd">
+      <arg value="--log-pmd" />
+      <arg value="${basedir}/build/logs/pmd-cpd.xml" />
+      <arg path="${basedir}/application/controllers" />
+	  <arg path="${basedir}/application/models" />
+	  <arg path="${basedir}/application/views" />
+	  <arg path="${basedir}/application/views/users" />
+    </exec>
+  </target>
+  
+  <target name="phpdox" description="Generate API documentation using phpDox">
+    <exec executable="phpdox"/>
+  </target>
+  
+  <target name="build" depends="clean,init,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdox" />
 
 </project>
