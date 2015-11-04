@@ -7,6 +7,7 @@
     <mkdir dir="${basedir}/build/logs" />
     <mkdir dir="${basedir}/build/api" />
     <mkdir dir="${basedir}/build/coverage" />
+	<mkdir dir="${basedir}/build/pdepend" />
   </target>
 
   <target name="clean">
@@ -20,6 +21,26 @@
     <delete>
       <fileset dir="${basedir}/build/coverage" includes="**.*" />
     </delete>
+	<delete>
+      <fileset dir="${basedir}/build/pdepend" includes="**.*" />
+    </delete>
+  </target>
+  
+  <target name="phploc" description="Measure project size using PHPLOC">
+	<exec executable="phploc">
+	  <arg value="--log-csv" />
+	  <arg value="${basedir}/build/logs/phploc.csv" />
+	  <arg path="${basedir}/src" />
+	</exec>
+  </target>
+
+  <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+    <exec executable="pdepend">
+      <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+      <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+      <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+      <arg path="${basedir}/src" />
+    </exec>
   </target>
   
   <target name="build" depends="clean,init" />
