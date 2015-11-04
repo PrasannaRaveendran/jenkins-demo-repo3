@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Customer-Management" default="build" basedir=".">
+  <property name="basedir" value="${WORKSPACE}"/>
+  
+  <target name="init">
+    <!-- Create the different build directories -->
+    <mkdir dir="${basedir}/build/logs" />
+    <mkdir dir="${basedir}/build/api" />
+    <mkdir dir="${basedir}/build/coverage" />
+  </target>
+
+  <target name="clean">
+    <!-- Delete build directories from the previous run -->
+    <delete>
+      <fileset dir="${basedir}/build/logs" includes="**.*" />
+    </delete>
+    <delete>
+      <fileset dir="${basedir}/build/api" includes="**.*" />
+    </delete>                                                 
+    <delete>
+      <fileset dir="${basedir}/build/coverage" includes="**.*" />
+    </delete>
+  </target>
+  
+  <target name="build" depends="init" />
+
+</project>
