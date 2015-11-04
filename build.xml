@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Customer-Management" default="build" basedir=".">
+<project name="Customer-Management" default="build" basedir="/var/www/html">
   <property name="basedir" value="${WORKSPACE}"/>
   
   <target name="init">
